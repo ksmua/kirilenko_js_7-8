@@ -38,3 +38,14 @@ a{
     margin-top: -1px;
     height: 300px;
 }
+
+#inputs{
+    line-height: 30px;
+}
+.tooltip {
+    display: none;
+    line-height: 14px;
+    border: 1px solid green;
+    border-radius: 4px;
+    padding: 3px;
+}
