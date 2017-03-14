@@ -4,50 +4,59 @@
 //         }
 // });
 $(document).ready(function () {
-	// var input = $('input');
-	// console.log(input);
-	// function getInputValue (){
-	// 	return($(this).attr(title));
-	// }
-	function addToolTip(){
-		$(this).after('<span class="tooltip">' + $(this).attr('title') + '</span>');
+	
+	//SES TOOLTIP
+	function addToolTip(e){ //get attr title from this and add element span in DOM after it
+		$(e).after('<span class="tooltip">' + $(e).attr('title') + '</span>');
 	}
-	// var inputValue = $('input').attr("title");
-	// $('input').after('<span class="tooltip">' + inputValue + '</span>');
 	
-	$('input').bind("focus", function(){
-		addToolTip(this);
-		$(this).next().show(500);
+	//ADD REACTION ON FOCUS
+	$('input').each(function(){
+	//ADD ON FOCUS 
+		$(this).bind("focus", function(){
+			if ($(this).after() == 'span'){
+				if($(this).after().is(':hiden')){
+					$(this).next().show(300);
+				}
+			}else{
+				addToolTip(this);
+				$(this).next().show(300);
+			}
+		});
+	//ADD ON BLUR
+		$(this).bind("blur", function(){
+			$(this).next().hide(300);
+		});
+	//ADD ON MOUSOVER
+		$(this).bind("mouseover", function(){
+			if ($(this).after() == 'span'){
+				if(($(this).is(':focus'))){ //show tooltip if input have not focus
+					return;
+				}else{$(this).next().show(300);}
+			}else{
+				addToolTip(this);
+				$(this).next().show(300);
+			}
+		});
+	//ADD ON MOUSEOUT
+		$(this).bind("mouseout", function(){
+			$(this).next().hide(300);
+		});	
 	});
 	
-	$('input').bind("blur", function(){
-		$(this).next().hide(500);
-	});
-
-	$('input').bind("mouseover", function(){
-		$(this).next().show(500);
-	});
-
-	$('input').bind("mouseout", function(){
-		$(this).next().hide(500);
-	});
-
-	// $('input').bind("focus", function(){
-	//  	var value = $(this).attr("title");
-	//  	console.log(value);
-	//  	$(this).after('<span class="tooltip">' + value + '</span>');
-	//  });
 	// $('input').bind("blur", function(){
+	// 	$(this).next().hide(500);
+	// });
 
-	
+	// $('input').bind("mouseover", function(){
+	// 	$(this).next().show(500);
+	// });
 
-	// .mouseenter(function() {
- //    $('#follow').css('display','block');
-	// })
-	// .mouseleave(function() {
- //    $('#follow').css('display','none');
-	// })
+	// $('input').bind("mouseout", function(){
+	// 	$(this).next().hide(500);
+	// });
 
+	//TABS
 	$('li').click(function(){
 		if( $(this).hasClass('curent-tab') ){
 			console.log('already curent');
