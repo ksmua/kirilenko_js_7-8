@@ -1,4 +1,3 @@
-
 *{
     margin: 0;
     padding: 0;
@@ -7,6 +6,7 @@
     width: 40%;
     margin: 0 auto;
     margin-top: 20px;
+    font-family: sans-serif;
 }
 .tab__head{
     display: inline-block;
@@ -18,7 +18,6 @@
     padding: 5px;
     cursor: pointer;
     border-bottom: none;
-    /*margin: 0 -2px 0 -2px;*/
 }
 a{
     text-decoration: none;
@@ -35,19 +34,38 @@ a{
 .curent-content{
     display: block;
     border: 1px solid black;
-    margin-top: -1px;
     height: 300px;
+    margin-top: -1px;
+    padding: 10px;
 }
-
+#myform{
+    margin: 1em;
+}
+form h3 {
+    margin: 1em 0 0.5em 1em;
+}
 #inputs{
     line-height: 30px;
+}
+label {
+    display: inline-block;
+    width: 6em;
 }
 .tooltip {
     display: none;
     line-height: 14px;
     border: 1px solid green;
     border-radius: 4px;
-    padding: 3px;
-    position: absolute;
+    padding: 3px 5px;
     margin-top: 5px;
+    margin-left: 5px;
+    color: green;
+}
+.show{
+    display: inline-block;
+    position: absolute;
+}
+button{
+    width: 7em;
+    margin: 1em 0 0 7.5em;
 }

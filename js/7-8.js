@@ -1,73 +1,72 @@
-// $('#wrapper a').click(function() {
-//         if ($(this).attr('class') != $('#wrapper').attr('class') ) {
-//             $('#wrapper').attr('class',$(this).attr('class'));
-//         }
-// });
 $(document).ready(function () {
 	
-	//SES TOOLTIP
-	function addToolTip(e){ //get attr title from this and add element span in DOM after it
-		$(e).after('<span class="tooltip">' + $(e).attr('title') + '</span>');
-	}
-	
-	//ADD REACTION ON FOCUS
+	//ADD TOOLTIP ELEMENT (HIDE) TO EACH INPUT
 	$('input').each(function(){
-	//ADD ON FOCUS 
-		$(this).bind("focus", function(){
-			if ($(this).after() == 'span'){
-				if($(this).after().is(':hiden')){
-					$(this).next().show(300);
-				}
-			}else{
-				addToolTip(this);
-				$(this).next().show(300);
+		$(this).after('<span class="tooltip">' + $(this).attr('title') + '</span>');
+		
+		function showTooolTip(e){
+			$(e).next().addClass('show').fadeIn(1000);
+			// console.log('function show');
+		}
+		function hideToolTip(e){
+			$(e).next().removeClass('show');
+			// console.log('function hide');
+		}
+	
+		var isInFocus = false;
+		var isMouseover = false;
+		
+	//ADD REACTION ON FOCUS 
+		$(this).focus(function(){
+			if (!isMouseover){
+				showTooolTip(this);
+				// console.log('showToolTip_on_focus');
 			}
+			isInFocus = true; 
+			// console.log('isInFocus = ' + isInFocus);
 		});
-	//ADD ON BLUR
-		$(this).bind("blur", function(){
-			$(this).next().hide(300);
-		});
-	//ADD ON MOUSOVER
-		$(this).bind("mouseover", function(){
-			if ($(this).after() == 'span'){
-				if(($(this).is(':focus'))){ //show tooltip if input have not focus
-					return;
-				}else{$(this).next().show(300);}
-			}else{
-				addToolTip(this);
-				$(this).next().show(300);
+	//ADD REACTION ON BLUR
+		$(this).blur(function(){
+			if(!isMouseover){
+				hideToolTip(this);
+				// console.log('hideToolTip_on_blur');
 			}
+			isInFocus = false;
+			// console.log('isInFocus = ' + isInFocus);
 		});
-	//ADD ON MOUSEOUT
-		$(this).bind("mouseout", function(){
-			$(this).next().hide(300);
+	
+	//ADD REACTION ON MOUSOVER
+		$(this).mouseover(function(){
+			if (!isInFocus){
+				showTooolTip(this);
+				// console.log('showToolTip_on_mouseover');
+			}
+			isMouseover = true;
+			// console.log('isMouseover = ' + isMouseover);
+		});
+	//ADD REACTION ON MOUSEOUT
+		$(this).mouseout(function(){
+			if(!isInFocus){
+				hideToolTip(this);
+				// console.log('hideToolTip_on_mouseout');
+			}
+			isMouseover = false;
+			// console.log('isMouseover = ' + isMouseover);
 		});	
 	});
 	
-	// $('input').bind("blur", function(){
-	// 	$(this).next().hide(500);
-	// });
-
-	// $('input').bind("mouseover", function(){
-	// 	$(this).next().show(500);
-	// });
-
-	// $('input').bind("mouseout", function(){
-	// 	$(this).next().hide(500);
-	// });
-
 	//TABS
 	$('li').click(function(){
-		if( $(this).hasClass('curent-tab') ){
-			console.log('already curent');
-		}
-		else {
+		if( !($(this).hasClass('curent-tab')) ){
+			// console.log('already curent');
+		// }
+		// else {
 		curentTab = (this.classList[0]);
-		console.log('curentTab = ' + curentTab);
+		// console.log('curentTab = ' + curentTab);
 			$(this).siblings().removeClass('curent-tab');
-				console.log("remove curent");
+				// console.log("remove curent");
 			$(this).addClass('curent-tab');
-				console.log("add curent");
+				// console.log("add curent");
 			$('.tab__content').removeClass('curent-content');
 			$('.' + curentTab + '.tab__content').addClass('curent-content');
 		}
